@@ -10,6 +10,7 @@ import { routeTree } from './routeTree.gen'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
 
+// TODO: last issue
 const apolloClient = new ApolloClient({
   uri: 'http://localhost:4001/graphql',
   cache: new InMemoryCache(),
@@ -28,10 +29,16 @@ const router = createRouter({
   defaultPreloadStaleTime: 0,
 })
 
+type Router = typeof router & {
+  context: {
+    apolloClient: typeof apolloClient
+  }
+}
+
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router
+    router: Router
   }
 }
 
