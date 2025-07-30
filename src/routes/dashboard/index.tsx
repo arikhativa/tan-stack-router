@@ -5,8 +5,9 @@ export const Route = createFileRoute('/dashboard/')({
 })
 
 function RouteComponent() {
-  return <div className=' flex justify-center bg-pink-300'>
-    
-    <p className=' self-center'>Hello "/dashboard/"!</p>
+  return (
+    <div className=' flex justify-center bg-pink-300'>
+      <p className=' self-center'>Hello "/dashboard/"!</p>
     </div>
+  )
 }
