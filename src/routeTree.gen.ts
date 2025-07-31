@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as LeadIndexRouteImport } from './routes/lead/index'
 import { Route as LeadTableRouteImport } from './routes/lead/table'
 import { Route as LeadIdRouteImport } from './routes/lead/$id'
 
@@ -19,9 +19,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
+const LeadIndexRoute = LeadIndexRouteImport.update({
+  id: '/lead/',
+  path: '/lead/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeadTableRoute = LeadTableRouteImport.update({
@@ -39,34 +39,34 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/lead/$id': typeof LeadIdRoute
   '/lead/table': typeof LeadTableRoute
-  '/dashboard': typeof DashboardIndexRoute
+  '/lead': typeof LeadIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/lead/$id': typeof LeadIdRoute
   '/lead/table': typeof LeadTableRoute
-  '/dashboard': typeof DashboardIndexRoute
+  '/lead': typeof LeadIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/lead/$id': typeof LeadIdRoute
   '/lead/table': typeof LeadTableRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/lead/': typeof LeadIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/lead/$id' | '/lead/table' | '/dashboard'
+  fullPaths: '/' | '/lead/$id' | '/lead/table' | '/lead'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/lead/$id' | '/lead/table' | '/dashboard'
-  id: '__root__' | '/' | '/lead/$id' | '/lead/table' | '/dashboard/'
+  to: '/' | '/lead/$id' | '/lead/table' | '/lead'
+  id: '__root__' | '/' | '/lead/$id' | '/lead/table' | '/lead/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LeadIdRoute: typeof LeadIdRoute
   LeadTableRoute: typeof LeadTableRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
+  LeadIndexRoute: typeof LeadIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,11 +78,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardIndexRouteImport
+    '/lead/': {
+      id: '/lead/'
+      path: '/lead'
+      fullPath: '/lead'
+      preLoaderRoute: typeof LeadIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lead/table': {
@@ -106,7 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LeadIdRoute: LeadIdRoute,
   LeadTableRoute: LeadTableRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
+  LeadIndexRoute: LeadIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
