@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { GraphQLClient } from 'graphql-request'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -10,18 +10,20 @@ import { routeTree } from './routeTree.gen'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
 
-// TODO: last issue
-const apolloClient = new ApolloClient({
-  uri: 'http://localhost:4001/graphql',
-  cache: new InMemoryCache(),
-});
+const queryClient = new QueryClient()
 
+export const graphqlClient = new GraphQLClient('http://localhost:4001/graphql', {
+  headers: {
+    // Add auth headers here if needed
+    // authorization: `Bearer ${token}`,
+  },
+})
 
-// Create a new router instance
 const router = createRouter({
   routeTree,
   context: {
-    apolloClient,
+    graphqlClient: graphqlClient,
+    queryClient,
   },
   defaultPreload: 'intent',
   scrollRestoration: true,
@@ -29,28 +31,27 @@ const router = createRouter({
   defaultPreloadStaleTime: 0,
 })
 
-type Router = typeof router & {
-  context: {
-    apolloClient: typeof apolloClient
-  }
+
+export type RouterContext = {
+  queryClient: QueryClient
+  graphqlClient: GraphQLClient
 }
 
-// Register the router instance for type safety
+
 declare module '@tanstack/react-router' {
   interface Register {
-    router: Router
+    router: typeof router
   }
 }
 
-// Render the app
 const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <ApolloProvider client={apolloClient}>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-      </ApolloProvider>
+      </QueryClientProvider>
     </StrictMode>,
   )
 }
