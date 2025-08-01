@@ -10,11 +10,11 @@ export type BookCol = {
 export const columns: ColumnDef<BookCol>[] = [
     {
         accessorKey: "id",
-        header: "Reference Key",
+        header: "Id",
     },
     {
         accessorKey: "title",
-        header: "Book Title",
+        header: "Title",
     },
     {
         accessorKey: "author",

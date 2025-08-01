@@ -15,16 +15,15 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-// import {
-//     DropdownMenu,
-//     DropdownMenuCheckboxItem,
-//     DropdownMenuContent,
-//     DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
+import {
+    DropdownMenu,
+    DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -67,7 +66,7 @@ export function DataTable<TData, TValue>({
                                 return (
                                     <DropdownMenuCheckboxItem
                                         key={column.id}
-                                        className="capitalize z-10 bg-red-300"
+                                        className="capitalize"
                                         checked={column.getIsVisible()}
                                         onCheckedChange={(value) =>
                                             column.toggleVisibility(!!value)

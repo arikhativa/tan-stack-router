@@ -8,4 +8,7 @@
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "node_modules/@radix-ui",
+  ],
 }
