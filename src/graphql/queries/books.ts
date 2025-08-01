@@ -14,3 +14,11 @@ export const GET_BOOKS_A = `
     }
   }
 `
+export const GET_BOOKS_IS_GOOD = `
+  query GetBooks {
+    books {
+        id
+        isGood
+    }
+  }
+`

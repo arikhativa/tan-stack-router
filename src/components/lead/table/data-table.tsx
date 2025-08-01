@@ -34,6 +34,7 @@ export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
+    console.log('DataTable',);
     const [columnVisibility, setColumnVisibility] =
         useState<VisibilityState>({})
 

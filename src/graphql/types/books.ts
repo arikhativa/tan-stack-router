@@ -9,10 +9,19 @@ export type BookAuthor = {
     author: string
 }
 
+export type BookIsGood = {
+    id: string
+    isGood: boolean
+}
+
 export type Books = {
     books: Book[]
 }
 
 export type BooksAuthor = {
     books: BookAuthor[]
+}
+
+export type BooksIsGood = {
+    books: BookIsGood[]
 }

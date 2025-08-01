@@ -7,8 +7,4 @@ export const booksAuthorQueryOptions = (id?: string) =>
     queryOptions({
         queryKey: ['booksAuthor', id],
         queryFn: () => graphqlClient.request<BooksAuthor>(GET_BOOKS_A),
-        refetchInterval: 1 * 1000,
-        refetchIntervalInBackground: true,
-        staleTime: 0,
-        refetchOnWindowFocus: true,
     })

@@ -16,7 +16,7 @@ function RouteComponent() {
 
   const { data } = useSuspenseQuery(booksQueryOptions())
 
-  return <div className=' bg-gray-300 p-10'>
+  return <div className=' bg-purple-500 p-10'>
     <DataTable columns={columns} data={data.books} />
   </div>
 }
