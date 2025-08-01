@@ -23,6 +23,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-    }
+      "@radix-ui/*": ["./node_modules/empty-package/*"]
+    },
+    
   }
 }

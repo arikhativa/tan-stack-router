@@ -13,7 +13,6 @@ export const Route = createFileRoute('/lead/$id')({
 })
 
 function RouteComponent() {
-  console.log('R - ID');
   const { id } = Route.useParams()
   const { data } = useSuspenseQuery(booksQueryOptions())
 

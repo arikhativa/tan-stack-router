@@ -1,9 +1,20 @@
+import { columns } from '@/components/lead/table/columns'
+import { DataTable } from '@/components/lead/table/data-table'
+import { booksQueryOptions } from '@/queryOptions/booksQueryOptions'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/lead/table')({
   component: RouteComponent,
+  loader: async ({ context }) => {
+    return context.queryClient.ensureQueryData(booksQueryOptions())
+  }
 })
 
 function RouteComponent() {
-  return <div>Hello "/lead/asdsad"!</div>
+  const { data } = useSuspenseQuery(booksQueryOptions())
+
+  return <div className=' bg-gray-300 p-10'>
+    <DataTable columns={columns} data={data.books} />
+  </div>
 }

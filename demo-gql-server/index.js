@@ -21,7 +21,7 @@ const schema = buildSchema(`
   }
 `);
 
-const list = ["AA", "BB", "CC"]
+const list = ["AA", "BB", "CC", "DD"]
 
 // Sample data (acting as a simple database)
 const booksData = [
