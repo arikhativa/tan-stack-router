@@ -14,20 +14,23 @@ const schema = buildSchema(`
     books: [Book]
   }
 
+   type Mutation {
+    updateBookIsGood(id: ID!, isGood: Boolean!): Book
+  }
+
   type Book {
     id: ID!
-    title: String
-    author: String
+    title: String!
+    author: String!
+    isGood: Boolean!
   }
 `);
 
-const list = ["AA", "BB", "CC", "DD"]
-
 // Sample data (acting as a simple database)
 const booksData = [
-  { id: '1', title: 'The Great Gatsby', author: 'AAAA' },
-  { id: '2', title: 'To Kill a Mockingbird', author: 'Harper Lee' },
-  { id: '3', title: '1984', author: 'George Orwell' },
+  { id: '1', title: 'The Great Gatsby', author: 'Jestan', isGood: false },
+  { id: '2', title: 'To Kill a Mockingbird', author: 'Harper Lee', isGood: false },
+  { id: '3', title: '1984', author: 'George Orwell', isGood: false },
 ];
 
 // 3. Create a root resolver
@@ -41,11 +44,18 @@ const root = {
     return booksData.find(book => book.id === id);
   },
   books: () => {
-    // Return all books
-    const i = Math.floor(Math.random() * 3);
-    const tmp = list[i]
-    booksData[0].author = tmp;
+    console.log('books');
     return booksData;
+  },
+  updateBookIsGood: ({ id, isGood }) => {
+    console.log('updateBookIsGood');
+    const bookIndex = booksData.findIndex(book => book.id === id);
+    if (bookIndex > -1) {
+      booksData[bookIndex].isGood = isGood;
+      return booksData[bookIndex];
+    }
+    // If book not found, you might want to return null or throw an error
+    return null;
   },
 };
 
