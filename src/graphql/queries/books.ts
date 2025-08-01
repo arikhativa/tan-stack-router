@@ -9,6 +9,7 @@ export const GET_BOOKS = `
 export const GET_BOOKS_A = `
   query GetBooks {
     books {
+        id
         author
     }
   }

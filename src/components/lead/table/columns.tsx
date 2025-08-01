@@ -1,5 +1,6 @@
 
 import type { ColumnDef } from "@tanstack/react-table"
+import { AuthorCell } from './AuthorCell';
 
 export type BookCol = {
     id: string
@@ -19,5 +20,8 @@ export const columns: ColumnDef<BookCol>[] = [
     {
         accessorKey: "author",
         header: "Author",
+        cell: ({ row }) => {
+            return <AuthorCell id={row.getValue("id")} />
+        }
     },
 ]

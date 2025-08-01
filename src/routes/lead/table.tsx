@@ -12,6 +12,8 @@ export const Route = createFileRoute('/lead/table')({
 })
 
 function RouteComponent() {
+  console.log('R Table');
+
   const { data } = useSuspenseQuery(booksQueryOptions())
 
   return <div className=' bg-gray-300 p-10'>

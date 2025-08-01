@@ -5,6 +5,7 @@ export type Book = {
 }
 
 export type BookAuthor = {
+    id: string
     author: string
 }
 
