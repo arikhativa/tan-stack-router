@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useBookIsGood } from "@/hooks/useBookIsGood";
-import { useIsGoodMutation } from "@/hooks/useIsGoodMutation";
+import { useIsGoodMutation } from "@/hooks/mutations/useIsGoodMutation";
 
 interface Props {
     id: string
