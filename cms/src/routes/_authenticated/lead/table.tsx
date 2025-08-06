@@ -7,14 +7,14 @@ import { createFileRoute } from '@tanstack/react-router'
 export const Route = createFileRoute('/_authenticated/lead/table')({
   component: RouteComponent,
   loader: async ({ context }) => {
-    return context.queryClient.ensureQueryData(booksQueryOptions())
+    return context.queryClient.ensureQueryData(booksQueryOptions(context))
   }
 })
 
 function RouteComponent() {
   console.log('R Table');
-
-  const { data } = useSuspenseQuery(booksQueryOptions())
+  const context = Route.useRouteContext()
+  const { data } = useSuspenseQuery(booksQueryOptions(context))
 
   return <div className=' bg-purple-500 p-10'>
     <DataTable columns={columns} data={data.books} />

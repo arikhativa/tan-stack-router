@@ -8,13 +8,14 @@ export const Route = createFileRoute('/_authenticated/lead/$id')({
   errorComponent: ({ error }) => <p>Hey these is err:    {error.message}</p>,
   pendingComponent: () => <p>Loading specific data...</p>,
   loader: async ({ context }) => {
-    return context.queryClient.ensureQueryData(booksQueryOptions())
+    return context.queryClient.ensureQueryData(booksQueryOptions(context))
   }
 })
 
 function RouteComponent() {
   const { id } = Route.useParams()
-  const { data } = useSuspenseQuery(booksQueryOptions())
+  const context = Route.useRouteContext()
+  const { data } = useSuspenseQuery(booksQueryOptions(context))
 
   const title = data.books[0].title
 

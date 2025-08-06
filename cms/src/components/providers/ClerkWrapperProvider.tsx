@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { PUBLISHABLE_KEY } from "@/constants/env";
 // import { Theme, useTheme } from "@/components/ui/theme-provider";

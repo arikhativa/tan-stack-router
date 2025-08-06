@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as AuthenticatedLeadIndexRouteImport } from './routes/_authenticated/lead/index'
 import { Route as AuthenticatedLeadTableRouteImport } from './routes/_authenticated/lead/table'
@@ -18,11 +17,6 @@ import { Route as AuthenticatedLeadIdRouteImport } from './routes/_authenticated
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicLoginRoute = PublicLoginRouteImport.update({
@@ -47,14 +41,12 @@ const AuthenticatedLeadIdRoute = AuthenticatedLeadIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/login': typeof PublicLoginRoute
   '/lead/$id': typeof AuthenticatedLeadIdRoute
   '/lead/table': typeof AuthenticatedLeadTableRoute
   '/lead': typeof AuthenticatedLeadIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/login': typeof PublicLoginRoute
   '/lead/$id': typeof AuthenticatedLeadIdRoute
   '/lead/table': typeof AuthenticatedLeadTableRoute
@@ -62,7 +54,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_public/login': typeof PublicLoginRoute
   '/_authenticated/lead/$id': typeof AuthenticatedLeadIdRoute
@@ -71,12 +62,11 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/lead/$id' | '/lead/table' | '/lead'
+  fullPaths: '/login' | '/lead/$id' | '/lead/table' | '/lead'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/lead/$id' | '/lead/table' | '/lead'
+  to: '/login' | '/lead/$id' | '/lead/table' | '/lead'
   id:
     | '__root__'
-    | '/'
     | '/_authenticated'
     | '/_public/login'
     | '/_authenticated/lead/$id'
@@ -85,7 +75,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   PublicLoginRoute: typeof PublicLoginRoute
 }
@@ -97,13 +86,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/login': {
@@ -153,7 +135,6 @@ const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   PublicLoginRoute: PublicLoginRoute,
 }

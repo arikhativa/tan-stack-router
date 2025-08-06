@@ -1,22 +1,32 @@
 import { AppSidebar } from '@/components/AppSidebar'
 import { SidebarProvider } from '@/components/ui/sidebar'
-import { useAuth, useUser } from '@clerk/clerk-react';
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { useAuth } from '@clerk/clerk-react';
+import { createFileRoute, Outlet, redirect, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
 export const Route = createFileRoute('/_authenticated')({
   component: RouteComponent,
+  beforeLoad: ({ context, location }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({
+        to: '/login',
+        search: {
+          redirect: location.href,
+        },
+      })
+    }
+  },
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
   const { isLoaded, isSignedIn } = useAuth()
-  const { user } = useUser()
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
-      console.log('E',);
-      // TODO
-      window.location.href = '/login'
+      navigate({
+        to: '/login',
+      })
     }
   }, [isLoaded, isSignedIn])
 
@@ -41,11 +51,6 @@ function RouteComponent() {
 
   return <SidebarProvider>
     <AppSidebar />
-    <div className="mb-8">
-      <h2 className="text-2xl font-bold text-gray-900">
-        Welcome back, {user?.firstName}!
-      </h2>
-    </div>
     <Outlet />
   </SidebarProvider>
 }

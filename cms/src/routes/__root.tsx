@@ -1,9 +1,6 @@
-import { ClerkWrapperProvider } from '@/components/providers/ClerkWrapperProvider'
-import type { RouterContext } from '@/main'
+import type { RouterContext } from '@/App'
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
@@ -13,9 +10,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 function RootComponent() {
   return (
     <>
-      <ClerkWrapperProvider>
-        <Outlet />
-      </ClerkWrapperProvider>
+      <Outlet />
       <TanStackRouterDevtools />
     </>
   )
