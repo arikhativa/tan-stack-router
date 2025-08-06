@@ -4,7 +4,7 @@ import { booksQueryOptions } from '@/queryOptions/booksQueryOptions'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/lead/table')({
+export const Route = createFileRoute('/_authenticated/lead/table')({
   component: RouteComponent,
   loader: async ({ context }) => {
     return context.queryClient.ensureQueryData(booksQueryOptions())

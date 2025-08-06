@@ -15,8 +15,7 @@ function App() {
 
   return (
     <div >
-      {/* <p>welcome :)</p> */}
-
+      <p>index page</p>
       <Link
         to="/lead"
       >

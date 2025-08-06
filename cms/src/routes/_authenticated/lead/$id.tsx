@@ -3,7 +3,7 @@ import { booksQueryOptions } from '@/queryOptions/booksQueryOptions';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/lead/$id')({
+export const Route = createFileRoute('/_authenticated/lead/$id')({
   component: RouteComponent,
   errorComponent: ({ error }) => <p>Hey these is err:    {error.message}</p>,
   pendingComponent: () => <p>Loading specific data...</p>,
