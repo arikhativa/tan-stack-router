@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as AuthenticatedLeadIndexRouteImport } from './routes/_authenticated/lead/index'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedLeadTableRouteImport } from './routes/_authenticated/lead/table'
 import { Route as AuthenticatedLeadIdRouteImport } from './routes/_authenticated/lead/$id'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicLoginRoute = PublicLoginRouteImport.update({
@@ -29,6 +36,12 @@ const AuthenticatedLeadIndexRoute = AuthenticatedLeadIndexRouteImport.update({
   path: '/lead/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedLeadTableRoute = AuthenticatedLeadTableRouteImport.update({
   id: '/lead/table',
   path: '/lead/table',
@@ -41,40 +54,55 @@ const AuthenticatedLeadIdRoute = AuthenticatedLeadIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/login': typeof PublicLoginRoute
   '/lead/$id': typeof AuthenticatedLeadIdRoute
   '/lead/table': typeof AuthenticatedLeadTableRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/lead': typeof AuthenticatedLeadIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/login': typeof PublicLoginRoute
   '/lead/$id': typeof AuthenticatedLeadIdRoute
   '/lead/table': typeof AuthenticatedLeadTableRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
   '/lead': typeof AuthenticatedLeadIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_public/login': typeof PublicLoginRoute
   '/_authenticated/lead/$id': typeof AuthenticatedLeadIdRoute
   '/_authenticated/lead/table': typeof AuthenticatedLeadTableRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
   '/_authenticated/lead/': typeof AuthenticatedLeadIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/lead/$id' | '/lead/table' | '/lead'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/lead/$id'
+    | '/lead/table'
+    | '/dashboard'
+    | '/lead'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/lead/$id' | '/lead/table' | '/lead'
+  to: '/' | '/login' | '/lead/$id' | '/lead/table' | '/dashboard' | '/lead'
   id:
     | '__root__'
+    | '/'
     | '/_authenticated'
     | '/_public/login'
     | '/_authenticated/lead/$id'
     | '/_authenticated/lead/table'
+    | '/_authenticated/dashboard/'
     | '/_authenticated/lead/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   PublicLoginRoute: typeof PublicLoginRoute
 }
@@ -86,6 +114,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/login': {
@@ -100,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/lead'
       fullPath: '/lead'
       preLoaderRoute: typeof AuthenticatedLeadIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/lead/table': {
@@ -122,12 +164,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedLeadIdRoute: typeof AuthenticatedLeadIdRoute
   AuthenticatedLeadTableRoute: typeof AuthenticatedLeadTableRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
   AuthenticatedLeadIndexRoute: typeof AuthenticatedLeadIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLeadIdRoute: AuthenticatedLeadIdRoute,
   AuthenticatedLeadTableRoute: AuthenticatedLeadTableRoute,
+  AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   AuthenticatedLeadIndexRoute: AuthenticatedLeadIndexRoute,
 }
 
@@ -135,6 +179,7 @@ const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   PublicLoginRoute: PublicLoginRoute,
 }

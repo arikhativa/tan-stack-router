@@ -5,11 +5,14 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/components/ui/sidebar"
+import { UserButton } from "@clerk/clerk-react"
 
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader />
+      <SidebarHeader >
+        <UserButton />
+      </SidebarHeader >
       <SidebarContent>
         <SidebarGroup />
         <SidebarGroup />
